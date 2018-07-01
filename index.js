@@ -5,10 +5,12 @@ const passport       = require('passport');
 const keys          = require('./config/keys');
 const bodyParser    = require('body-parser');
 
-//mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURL);// connect to mongo
 
 require('./models/User'); // define user
+require('./models/Survey');
+
 require('./services/passport'); // passport
 
 
@@ -28,7 +30,9 @@ app.use(passport.session());
 //routes
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
+// the client routes
 if(process.env.NODE_ENV === 'production'){
   app.use(express.static('client/build'));
   const path = require('path');

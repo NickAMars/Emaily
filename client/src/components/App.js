@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { fetchUser } from '../actions';
 import Header from './Header';
 import Landing from './Landing';
+import Dashboard from './Dashboard';
+import SurveyNew from './surveys/SurveyNew';
 //const Header = () => <h1> Navigation </h1>;
-const Page_Default = () => <h1 style= {{ textAlign: 'center'}}> THE PROCESS </h1>;
-const Page_Default1 = () => <h1 style= {{ textAlign: 'center'}}> TRUST </h1>;
 class App extends Component{
 //componentWillMount life cycle method
   componentDidMount(){
@@ -21,8 +21,8 @@ class App extends Component{
           <div className="container">
           <Header />
             <Switch>
-              <Route        path = "/surveys/new" component= {Page_Default1} />
-              <Route        path = "/surveys" component= {Page_Default} />
+              <Route        path = "/surveys/new" component= {SurveyNew} />
+              <Route        path = "/surveys" component= {Dashboard} />
               <Route exact  path = "/" component= {Landing} />
 
             </Switch>

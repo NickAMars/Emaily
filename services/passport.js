@@ -17,7 +17,6 @@ passport.deserializeUser((id, done) =>{
   });
 });
 
-
 passport.use(
   new GoogleStategy({
     clientID: keys.googleClientID,
@@ -32,6 +31,7 @@ passport.use(
         // does the id already exist
         if(existingUser) return done(null, existingUser);
 
+        // save user to database
         const user = await new User({ googleId: profile.id }).save();
         done(null, user);
     }

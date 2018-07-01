@@ -14,3 +14,12 @@ export const handleToken = (token) =>
     const res = await axios.post('/api/stripe', token);
     dispatch( {type: FETCH_USER, payload: res.data } );
   }
+
+export const submitSurvey = (values, history) => async dispatch => {
+  ///console.log('submitSurvey');
+  const res = await axios.post('/api/surveys', values);
+  // navigate to another route after review form
+  history.push('/surveys');
+  dispatch( {type: FETCH_USER, payload: res.data } );
+  //return { type: 'submit_survey'};
+}
