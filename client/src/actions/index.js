@@ -2,6 +2,7 @@ import axios from 'axios';
 //import { FETCH_USER } from './type';
 
 export const FETCH_USER = 'fetch_user';
+export const FETCH_SURVEYS = 'fetch_surveys';
 
 export const  fetchUser = () =>
   async dispatch => {
@@ -23,3 +24,9 @@ export const submitSurvey = (values, history) => async dispatch => {
   dispatch( {type: FETCH_USER, payload: res.data } );
   //return { type: 'submit_survey'};
 }
+
+// query through surveys 
+export const fetchSurveys = () => async dispatch =>{
+  const res = await axios.get('/api/surveys');
+  dispatch({ type: FETCH_SURVEYS, payload: res.data });
+};
