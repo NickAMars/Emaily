@@ -10,6 +10,14 @@ const Survey = mongoose.model('surveys');
 
 
 module.exports = app => {
+  app.get('/api/surveys', requireLogin, async (req, res) => {
+
+    const surveys = await Survey.find({ _user: req.user.id }). select({
+      recipients: false // not including
+    });
+    res.send(surveys);
+
+  });
   // get request
   app.get('/api/surveys/:surveyId/:choice', (req, res) => {
     res.send ('Thanks for voting!');
@@ -45,12 +53,12 @@ module.exports = app => {
           {
             _id: surveyId,
             recipients: {
-              $elemMatch: { email: email, responded: false }
+              $elemMatch: { email: email, responded: false } // find element that matches
             }
           },
           {
-            $inc: { [choice]: 1 },
-            $set: { 'recipients.$.responded': true },
+            $inc: { [choice]: 1 }, //selector operation [choice] gets incremented by $inc
+            $set: { 'recipients.$.responded': true }, // updating a sub document in mongo
             lastResponded: new Date()
           }
         ).exec();
